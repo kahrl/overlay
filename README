@@ -1,0 +1,36 @@
+This is my personal gentoo portage overlay.
+
+Everything in here is highly experimental. I reserve the right to break
+your systems and/or change the ebuilds in any way at any time. I also
+reverse the right to do absolutely nothing. Anyway, if you're using
+third-party ebuilds written by some dude on the internet and don't read
+them before installing, don't blame me if something breaks :-)
+
+May contain traces of nuts, gluten, simian, or milk.
+
+
+To install, emerge layman and add the following to /var/lib/layman/my-list.xml
+(or wherever you have the list of additional repositories to be; if it
+already exists, only add the part between <repo></repo>, inclusive):
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name><![CDATA[kahrl]]></name>
+    <description><![CDATA[kahrl's experimental overlay]]></description>
+    <homepage>http://github.com/kahrl/overlay/tree/master</homepage>
+    <owner>
+      <email>kahrl@gmx.net</email>
+      <name><![CDATA[Kahrl]]></name>
+    </owner>
+    <source type="git">git://github.com/kahrl/overlay.git</source>
+    <feed>http://github.com/feeds/kahrl/commits/overlay/master</feed>
+  </repo>
+</repositories>
+
+Once you've done that, change layman's overlays setting and add
+/var/lib/layman/my-list.xml to your /etc/layman/layman.cfg, like this:
+overlays  : http://www.gentoo.org/proj/en/overlays/repositories.xml
+            file:///var/lib/layman/my-list.xml
+
+Then layman -a kahrl should take care of adding the overlay.
