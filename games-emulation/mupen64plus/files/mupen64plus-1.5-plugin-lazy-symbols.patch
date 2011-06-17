@@ -1,0 +1,14 @@
+Description: Lazy resolution of symbols when a plugin is loaded. Fixes rice_video load issues if OpenGL NVidia extensions are not available.
+
+diff -Naur a/main/plugin.c b/main/plugin.c
+--- a/main/plugin.c	2011-04-23 15:32:58.592000099 +0200
++++ b/main/plugin.c	2011-04-23 15:33:19.695000101 +0200
+@@ -182,7 +182,7 @@
+     }
+ #endif
+ 
+-    handle = dlopen(filepath, RTLD_NOW);
++    handle = dlopen(filepath, RTLD_LAZY);
+     if(handle)
+     {
+         getDllInfo = dlsym(handle, "GetDllInfo");
