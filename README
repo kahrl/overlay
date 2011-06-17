@@ -9,9 +9,11 @@ them before installing, don't blame me if something breaks :-)
 May contain traces of nuts, gluten, simian, or milk.
 
 
-To install, emerge layman and add the following to /var/lib/layman/my-list.xml
-(or wherever you have the list of additional repositories to be; if it
-already exists, only add the part between <repo></repo>, inclusive):
+To install, emerge layman and add the following text to
+/var/lib/layman/my-list.xml (or wherever you have configured the
+list of additional repositories to be; if it already exists, only
+add the part between <repo></repo>, inclusive):
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
 <repositories xmlns="" version="1.0">
