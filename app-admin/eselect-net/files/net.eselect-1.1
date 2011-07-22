@@ -1,0 +1,190 @@
+# -*-eselect-*-  vim: ft=eselect
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Id: $
+
+DESCRIPTION="Manage the /etc/init.d/net.* symlinks"
+MAINTAINER="eselect@gentoo.org"
+SVN_DATE='$Date: $'
+VERSION=$(svn_date_to_version "${SVN_DATE}")
+
+# find a list of net.* init scripts
+find_scripts() {
+	local f
+	for f in "${EROOT}"/etc/init.d/net.[A-Za-z][A-Za-z0-9]* ; do
+		[[ -f ${f} ]] && [[ -x ${f} ]] && basename "${f}" | cut -d . -f 2-
+	done | sort
+}
+
+# check interface syntax, remove optional net. prefix, convert numbers to names
+canonicalize_interface() {
+	local iface=${1}
+
+	if is_number ${iface} ; then
+		local scripts=( $(find_scripts) )
+		local script=${scripts[${iface} - 1]}
+		if [[ -z ${script} ]] ; then
+			die -q "Number ${iface} is out of range"
+		fi
+		iface=${script}
+	fi
+
+	if [[ -z ${iface} ]] ; then
+		# empty interface name, caller must check for empty return value
+		true
+
+	elif [[ ${iface} =~ ^[A-Za-z0-9]+$ ]] ; then
+		# valid interface name
+		echo ${iface}
+
+	elif [[ ${iface} =~ ^net.[A-Za-z0-9]+$ ]] ; then
+		# valid interface name with net. prefix
+		echo ${iface} | cut -d . -f 2-
+
+	else
+		# invalid interface name
+		write_error_msg "${iface} is not a valid interface name."
+		die -q "Only letters and numbers are allowed."
+	fi
+}
+
+# list runlevels for file $1
+# this function is taken from rc.eselect
+list_runlevels() {
+        [[ $# -eq 1 ]] || return
+        local x runlevels
+        for x in "${EROOT}"/etc/runlevels/* ; do
+                [[ -d ${x} && -L ${x}/${1} ]] \
+                        && runlevels=(${runlevels[@]} "${x##*/}")
+        done
+        echo -ne "${runlevels[@]}"
+}
+
+### add action ###
+
+describe_add() {
+	echo "Add a net.<interface> init script"
+}
+
+describe_add_parameters() {
+	echo "<interface>"
+}
+
+describe_add_options() {
+	echo "interface : Name of the network interface (e.g. eth0)"
+}
+
+do_add() {
+	local iface=$(canonicalize_interface "${1}")
+
+	if [[ -z ${iface} ]] ; then
+		# no parameter
+		die -q "You didn't tell me what interface to create a init script for."
+
+	elif [[ ${iface} == lo ]] ; then
+		if [[ -L ${EROOT}/etc/init.d/net.lo ]] ; then
+			write_error_msg "/etc/init.d/net.lo is not a regular file, something is wrong!"
+			die -q "Sorry, this script can't fix it."
+		elif [[ ! -e ${EROOT}/etc/init.d/net.lo ]] ; then
+			write_error_msg "${EROOT}/etc/init.d/net.lo does not exist, something is wrong!"
+			die -q "Sorry, this script can't fix it."
+		elif [[ ! -f ${EROOT}/etc/init.d/net.lo ]] ; then
+			write_error_msg "/etc/init.d/net.lo is not a regular file, something is wrong!"
+			die -q "Sorry, this script can't fix it."
+		elif [[ ! -x ${EROOT}/etc/init.d/net.lo ]] ; then
+			write_error_msg "/etc/init.d/net.lo is not executable, something is wrong!"
+			write_error_msg "Please verify that net.lo has not been tampered with, then run"
+			die -q "  chmod +x /etc/init.d/net.lo"
+		else
+			die -q "net.lo already exists"
+		fi
+
+	elif [[ -L ${EROOT}/etc/init.d/net.${iface} ]] ; then
+		# existing symlink
+
+		if [[ $(readlink -f ${EROOT}/etc/init.d/net.${iface}) == ${EROOT}/etc/init.d/net.lo ]]; then
+			die -q "net.${iface} already exists"
+		else
+			die -q "net.${iface} exists but is not a symlink to net.lo"
+		fi
+
+	elif [[ -e ${EROOT}/etc/init.d/net.${iface} ]]; then
+		# we have something strange
+		die -q "net.${iface} exists but is not a symlink"
+
+	else
+		write_list_start "Adding $(highlight net.${iface}) symlink to net.lo"
+		ln -s net.lo ${EROOT}/etc/init.d/net.${iface} || die -q "Couldn't create a new symlink"
+	fi
+}
+
+### delete action ###
+
+describe_delete() {
+	echo "Delete a net.<interface> init script"
+}
+
+describe_delete_parameters() {
+	echo "<interface>"
+}
+
+describe_delete_options() {
+	echo "interface : Name of the network interface (e.g. eth0)"
+}
+
+do_delete() {
+	local iface=$(canonicalize_interface "${1}")
+
+	if [[ -z ${iface} ]] ; then
+		# no parameter
+		die -q "You didn't tell me what interface to delete the init script for."
+
+	elif [[ ${iface} == lo ]] ; then
+		die -q "net.lo cannot be deleted"
+
+	elif [[ -L ${EROOT}/etc/init.d/net.${iface} ]] ; then
+		# existing symlink
+
+		if [[ $(readlink -f ${EROOT}/etc/init.d/net.${iface}) == ${EROOT}/etc/init.d/net.lo ]]; then
+			write_list_start "Deleting $(highlight net.${iface}) symlink to net.lo"
+			rm -f ${EROOT}/etc/init.d/net.${iface} || die -q "rm -f failed"
+			local runlevels=( $(list_runlevels net.${iface}) )
+			if [[ "${#runlevels[@]}" != 0 ]] ; then
+				write_warning_msg "net.${iface} is still a member of the following runlevels:"
+				write_warning_msg "  ${runlevels[@]}"
+				write_warning_msg "To remove it, run the following command:"
+				write_warning_msg "  eselect rc delete net.${iface} ${runlevels[@]}"
+			fi
+		else
+			die -q "net.${iface} exists but is not a symlink to net.lo"
+		fi
+
+	elif [[ -e ${EROOT}/etc/init.d/net.${iface} ]]; then
+		# we have something strange
+		die -q "net.${iface} exists but is not a symlink"
+
+	else
+		die -q "net.${iface} does not exist"
+	fi
+}
+
+### list action ###
+
+describe_list() {
+	echo "List available net.<interface> init scripts and their runlevels"
+}
+
+do_list() {
+	local i scripts=( $(find_scripts) )
+	write_list_start "Available network init scripts:"
+	for (( i = 0; i < ${#scripts[@]}; i++ )) ; do
+		local runlevels=( $(list_runlevels net.${scripts[i]}) )
+		scripts[i]="$(highlight net.${scripts[i]})"
+		if [[ "${#runlevels[@]}" == 0 ]] ; then
+			scripts[i]="${scripts[i]}   (no runlevels)"
+		else
+			scripts[i]="${scripts[i]}   ${runlevels[@]}"
+		fi
+        done
+	write_numbered_list -m "(none found)" "${scripts[@]}"
+}

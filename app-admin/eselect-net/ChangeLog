@@ -2,6 +2,14 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*eselect-net-1.1 (22 Jul 2011)
+
+  22 Jul 2011; Kahrl <kahrl@gmx.net> +files/net.eselect-1.1,
+  +eselect-net-1.1.ebuild:
+  app-admin/eselect-net-1.1: Version bump. New version shows runlevels
+  and is a little bit safer (it prints a warning message when deleting an
+  init script that is still a member of at least one runlevel).
+
 *eselect-net-1.0 (22 Jul 2011)
 
   22 Jul 2011; Kahrl <kahrl@gmx.net> +files/net.eselect-1.0,
