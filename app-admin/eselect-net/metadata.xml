@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>no-herd</herd>
+	<maintainer>
+		<email>kahrl@gmx.net</email>
+		<name>Kahrl</name>
+	</maintainer>
+	<longdescription lang="en">
+		The "eselect net" module manages /etc/init.d/net.* initscript symlinks. Use "eselect net add &lt;interface&gt;" to add a link from /etc/init.d/net.&lt;interface&gt; to /etc/init.d/net.lo; similarly, "eselect net delete &lt;interface&gt;" deletes these symlinks, and "eselect net list" shows a list of them.
+	</longdescription>
+</pkgmetadata>
+
