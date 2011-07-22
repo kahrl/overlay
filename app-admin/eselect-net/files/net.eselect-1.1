@@ -17,7 +17,7 @@ find_scripts() {
 }
 
 # check interface syntax, remove optional net. prefix, convert numbers to names
-canonicalize_interface() {
+canonicalise_interface() {
 	local iface=${1}
 
 	if is_number ${iface} ; then
@@ -75,7 +75,7 @@ describe_add_options() {
 }
 
 do_add() {
-	local iface=$(canonicalize_interface "${1}")
+	local iface=$(canonicalise_interface "${1}")
 
 	if [[ -z ${iface} ]] ; then
 		# no parameter
@@ -102,7 +102,7 @@ do_add() {
 	elif [[ -L ${EROOT}/etc/init.d/net.${iface} ]] ; then
 		# existing symlink
 
-		if [[ $(readlink -f ${EROOT}/etc/init.d/net.${iface}) == ${EROOT}/etc/init.d/net.lo ]]; then
+		if [[ $(canonicalise ${EROOT}/etc/init.d/net.${iface}) == ${EROOT}/etc/init.d/net.lo ]]; then
 			die -q "net.${iface} already exists"
 		else
 			die -q "net.${iface} exists but is not a symlink to net.lo"
@@ -133,7 +133,7 @@ describe_delete_options() {
 }
 
 do_delete() {
-	local iface=$(canonicalize_interface "${1}")
+	local iface=$(canonicalise_interface "${1}")
 
 	if [[ -z ${iface} ]] ; then
 		# no parameter
@@ -145,7 +145,7 @@ do_delete() {
 	elif [[ -L ${EROOT}/etc/init.d/net.${iface} ]] ; then
 		# existing symlink
 
-		if [[ $(readlink -f ${EROOT}/etc/init.d/net.${iface}) == ${EROOT}/etc/init.d/net.lo ]]; then
+		if [[ $(canonicalise ${EROOT}/etc/init.d/net.${iface}) == ${EROOT}/etc/init.d/net.lo ]]; then
 			write_list_start "Deleting $(highlight net.${iface}) symlink to net.lo"
 			rm -f ${EROOT}/etc/init.d/net.${iface} || die -q "rm -f failed"
 			local runlevels=( $(list_runlevels net.${iface}) )

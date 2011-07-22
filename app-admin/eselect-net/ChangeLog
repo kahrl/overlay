@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jul 2011; Kahrl <kahrl@gmx.net> files/net.eselect-1.1:
+  app-admin/net-eselect-1.1: Use "canonicalise" instead of "readlink -f";
+  convert to common spelling. No version bump necessary as there is no
+  change in behaviour.
+
 *eselect-net-1.1 (22 Jul 2011)
 
   22 Jul 2011; Kahrl <kahrl@gmx.net> +files/net.eselect-1.1,
