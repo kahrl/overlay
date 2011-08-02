@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>no-herd</herd>
+	<maintainer>
+		<email>kahrl@gmx.net</email>
+		<name>Kahrl</name>
+	</maintainer>
+	<longdescription lang="en">
+		Genalyze is a script that collects system information in a text file and uploads it to a pastebin service. Still in heavy development, visit #gentoo-genalyze on freenode to help! Actual maintainers of the script and ebuild are godmachine-x6 and smartass101, this ebuild is marked as maintained by kahrl@gmx.net only because it's in the kahrl overlay.
+	</longdescription>
+</pkgmetadata>
+
