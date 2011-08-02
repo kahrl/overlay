@@ -6,7 +6,7 @@ EAPI=4
 
 DESCRIPTION="A tool used to gather system information and paste it online"
 HOMEPAGE="https://sf.net/p/gentoo-genalyze"
-SRC_URI="https://sourceforge.net/projects/gentoo-genalyze/files/genalyze-0.0.2.tar.bz2"
+SRC_URI="https://sourceforge.net/projects/gentoo-genalyze/files/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
