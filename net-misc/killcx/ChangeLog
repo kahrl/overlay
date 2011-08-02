@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Aug 2011; Kahrl <kahrl@gmx.net> killcx-1.0.3.ebuild:
+  cleanup SRC_URI, no revbump needed
+
   02 Aug 2011; Kahrl <kahrl@gmx.net> +metadata.xml:
   adding metadata
 

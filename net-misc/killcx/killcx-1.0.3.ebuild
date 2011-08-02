@@ -8,7 +8,7 @@ RESTRICT="mirror"
 
 DESCRIPTION="Close a TCP connection"
 HOMEPAGE="http://killcx.sourceforge.net/"
-SRC_URI="https://sourceforge.net/projects/killcx/files/${PN}/${PV}/${P}.tgz/download -> ${P}.tgz"
+SRC_URI="https://sourceforge.net/projects/killcx/files/${PN}/${PV}/${P}.tgz"
 
 LICENSE="GPL-3"
 SLOT="0"
