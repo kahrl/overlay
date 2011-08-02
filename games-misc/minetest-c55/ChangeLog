@@ -1,0 +1,10 @@
+# ChangeLog for games-misc/minetest-c55
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*minetest-c55-0.2.20110731.3 (02 Aug 2011)
+
+  02 Aug 2011; Kahrl <kahrl@gmx.net> +minetest-c55-0.2.20110731.3.ebuild,
+  +files/minetest-find-share-games.patch, +metadata.xml:
+  games-misc/minetest-c55: package import
+

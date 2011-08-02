@@ -1,0 +1,17 @@
+--- celeron55-minetest-b277d01700f6/src/porting.cpp	2011-08-01 02:20:37.693686699 +0200
++++ celeron55-minetest-b277d01700f6/src/porting.cpp	2011-08-01 02:45:46.319687205 +0200
+@@ -209,13 +209,7 @@
+ 	
+ 	pathRemoveFile(buf, '/');
+ 
+-	path_data = std::string(buf) + "/../share/" + APPNAME;
+-	//path_data = std::string(INSTALL_PREFIX) + "/share/" + APPNAME;
+-	if (!fs::PathExists(path_data)) {
+-		dstream<<"WARNING: data path " << path_data << " not found!";
+-		path_data = std::string(buf) + "/../data";
+-		dstream<<" Trying " << path_data << std::endl;
+-	}
++	path_data = std::string(buf) + "/../../share/games/" + APPNAME;
+ 	
+ 	path_userdata = std::string(getenv("HOME")) + "/." + APPNAME;
+ 
