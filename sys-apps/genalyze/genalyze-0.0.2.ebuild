@@ -14,10 +14,10 @@ KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86"
 IUSE=""
 
 DEPEND="app-text/wgetpaste
-    sys-apps/pciutils"
+	sys-apps/pciutils"
 RDEPEND="${DEPEND}"
 
 src_install() {
-	dodoc README LICENSE
+	dodoc README
 	dobin genalyze
 }

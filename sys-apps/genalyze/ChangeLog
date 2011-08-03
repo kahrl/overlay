@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Aug 2011; Kahrl <kahrl@gmx.net> genalyze-0.0.2.ebuild:
+  please the repoman gods
+
   02 Aug 2011; Kahrl <kahrl@gmx.net> genalyze-0.0.2.ebuild:
   use ${P} in SRC_URI
 
