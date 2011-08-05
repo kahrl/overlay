@@ -1,0 +1,17 @@
+# ChangeLog for www-client/chromium
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*chromium-14.0.835.15-r1 (05 Aug 2011)
+
+  05 Aug 2011; Kahrl <kahrl@gmx.net> +chromium-14.0.835.15-r1.ebuild,
+  +files/chromium.default, +files/chromium.xml, +files/chromium-browser.xml,
+  +files/chromium-cups-r0.patch, +files/chromium-ffmpeg-build-r0.patch,
+  +files/chromium-icu-compatibility-r0.patch, +files/chromium-launcher-r2.sh,
+  +files/chromium-system-vpx-r3.patch, +files/chromium-glibc-2.14-r0.patch,
+  +files/chromium-system-vpx-r4.patch, +files/chromium-perl-5.14-r0.patch,
+  +files/chromium-launcher-r1.sh, +files/chromium-libgcrypt-r0.patch,
+  +files/chromium-system-libevent-r0.patch,
+  +files/chromium-system-zlib-r0.patch, +files/dot-gclient, +metadata.xml:
+  Added patched chromium ebuild to make pulseaudio dep optional
+
