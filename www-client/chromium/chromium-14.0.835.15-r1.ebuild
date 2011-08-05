@@ -15,7 +15,7 @@ SRC_URI="http://build.chromium.org/official/${P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cups gnome gnome-keyring kerberos pulseaudio"
+IUSE="cups gnome gnome-keyring kerberos webrtc"
 
 # en_US is ommitted on purpose from the list below. It must always be available.
 LANGS="am ar bg bn ca cs da de el en_GB es es_LA et fa fi fil fr gu he hi hr
@@ -40,7 +40,7 @@ RDEPEND="app-arch/bzip2
 	media-libs/libpng
 	>=media-libs/libwebp-0.1.2
 	media-libs/speex
-	pulseaudio? ( media-sound/pulseaudio )
+	webrtc? ( media-sound/pulseaudio )
 	cups? ( >=net-print/cups-1.3.11 )
 	sys-libs/zlib
 	x11-libs/gtk+:2
@@ -197,7 +197,7 @@ src_configure() {
 		$(gyp_use gnome use_gconf)
 		$(gyp_use gnome-keyring use_gnome_keyring)
 		$(gyp_use gnome-keyring linux_link_gnome_keyring)
-		$(gyp_use pulseaudio enable_webrtc)"
+		$(gyp_use webrtc enable_webrtc)"
 
 	# Enable sandbox.
 	myconf+="
@@ -419,12 +419,6 @@ pkg_postinst() {
 	elog " - media-fonts/takao-fonts"
 	elog " - media-fonts/wqy-microhei"
 	elog " - media-fonts/wqy-zenhei"
-
-	if ! use pulseaudio; then
-		elog
-		elog "pulseaudio USE flag has been disabled,"
-		elog "WebRTC will be unavailable."
-	fi
 }
 
 pkg_postrm() {
