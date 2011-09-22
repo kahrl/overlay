@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*minetest-c55-0.2.20110922.1 (22 Sep 2011)
+
+  22 Sep 2011; Kahrl <kahrl@gmx.net> +minetest-c55-0.2.20110922.1.ebuild,
+  +files/minetest-find-share-games-0.2.20110922.patch:
+  Version bump; SRC_URI has been changed from bitbucket to github.
+
 *minetest-c55-0.2.20110731.3 (02 Aug 2011)
 
   02 Aug 2011; Kahrl <kahrl@gmx.net> +minetest-c55-0.2.20110731.3.ebuild,
