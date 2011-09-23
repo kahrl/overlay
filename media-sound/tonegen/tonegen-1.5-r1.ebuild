@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit toolchain-funcs
+inherit eutils toolchain-funcs
 
 DESCRIPTION="Plays a sine wave via the dsp or standard out"
 HOMEPAGE="http://www.lns.com/papers/tonegen/"
@@ -19,6 +19,12 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 RESTRICT="mirror"
+
+src_prepare()
+{
+	# Let the program accept floating point arguments
+	epatch "${FILESDIR}"/${PN}-fp.patch
+}
 
 src_compile()
 {

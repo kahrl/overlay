@@ -1,0 +1,77 @@
+diff -Naur tonegen-1.5-old//tonegen.c tonegen-1.5/tonegen.c
+--- tonegen-1.5-old//tonegen.c	2011-09-23 04:42:21.000250760 +0200
++++ tonegen-1.5/tonegen.c	2011-09-23 04:47:14.222267131 +0200
+@@ -66,10 +66,10 @@
+ char device[BUF_SIZE] = DSP;
+ int stereo = FALSE;
+ int rate = 44100;
+-int freq = 400;
+-int time_sec = 0;
++double freq = 400;
++double time_sec = 0;
+ int elapst_sec = 0;
+-int db_down = 0;
++double db_down = 0;
+ int devfh;
+ int stdout_flg = FALSE;
+ int main(argc,argv)
+@@ -102,12 +102,12 @@
+          case 'F':   /* tone freqency... */
+          case 'f':
+             i++;
+-            freq = atoi(argv[i]);
++            freq = atof(argv[i]);
+             break;
+          case 'A':   /* Attenuate in dB... */
+          case 'a':
+             i++;
+-            db_down = atoi(argv[i]);
++            db_down = atof(argv[i]);
+             ratio = pow(10,(db_down/20.0));
+             if(ratio == 0){
+                ratio = 1;
+@@ -130,7 +130,7 @@
+          case 'T':   /* Seconds to run... */
+          case 't':
+             i++;
+-            time_sec = atoi(argv[i]);
++            time_sec = atof(argv[i]);
+             break;
+          default:
+             printf("I don't know the meaning of the command line argument: \"%s\".\n",argv[i]);
+@@ -141,7 +141,7 @@
+ 
+    /* Lets do some santiy checking on what we are to do... */
+    if(freq >= (rate/2)){
+-      printf("Tone frequency of %i cannot be reproduced with a sample rate of %i. \nTry a tone below %i.\nExiting...\n",freq,rate,rate/2);
++      printf("Tone frequency of %f cannot be reproduced with a sample rate of %i. \nTry a tone below %i.\nExiting...\n",freq,rate,rate/2);
+       exit(1);
+    }
+    if(rate >= 44101){
+@@ -150,11 +150,11 @@
+    }
+ 
+    if(!stdout_flg){
+-      printf("The \"sample rate\" is %i.  The tone is %i Hz at %i dB down",rate, freq, db_down);
++      printf("The \"sample rate\" is %i.  The tone is %f Hz at %f dB down",rate, freq, db_down);
+       if(time_sec == 0)
+          printf(".\n");
+       else
+-         printf(" for %i seconds.\n",time_sec);
++         printf(" for %f seconds.\n",time_sec);
+    }
+ 
+    p=malloc(rate*2*.15);	/* This will be used for the buffer 
+@@ -249,10 +249,10 @@
+ banner()
+ {
+    printf("tonegen: Generates a sine wave on the sound card or standard out.\n");
+-   printf("   -a dB       Sets attenuation from \"all ones\" in dB.  Default is \"%i db\".\n",db_down);
++   printf("   -a dB       Sets attenuation from \"all ones\" in dB.  Default is \"%f db\".\n",db_down);
+    printf("   -d device   Sets device name.  Default is \"%s\".\n",device);
+    printf("               If \"device\" is \"-\" then it uses STDOUT\n");
+-   printf("   -f Hz       Sets tone in Hertz.  Default is \"%i Hz\".\n",freq);
++   printf("   -f Hz       Sets tone in Hertz.  Default is \"%f Hz\".\n",freq);
+    printf("   -r rate     Sets device sample rate in Hertz.  Default is \"%i Hz\".\n",rate);
+    /* printf("   -s          Sets device to run in stereo.  Default is mono.\n"); */
+    printf("   -t seconds  Sets time to run.  Default is infinite.\n");
