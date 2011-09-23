@@ -1,0 +1,9 @@
+# ChangeLog for media-sound/tonegen
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*tonegen-1.5 (23 Sep 2011)
+
+  23 Sep 2011; Kahrl <kahrl@gmx.net> +tonegen-1.5.ebuild, +metadata.xml:
+  Initial package import.
+
