@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*minetest-c55-0.2.20110922.2 (27 Sep 2011)
+
+  27 Sep 2011; Kahrl <kahrl@gmx.net> +minetest-c55-0.2.20110922.2.ebuild:
+  Version bump.
+
 *minetest-c55-0.2.20110922.1 (22 Sep 2011)
 
   22 Sep 2011; Kahrl <kahrl@gmx.net> +minetest-c55-0.2.20110922.1.ebuild,
