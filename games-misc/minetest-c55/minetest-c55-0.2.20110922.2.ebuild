@@ -11,7 +11,7 @@ inherit eutils games versionator cmake-utils
 MY_PN="minetest"
 MY_PV=$(replace_version_separator 3 '_')
 MY_P="${PN}-${MY_PV}"
-MY_CHANGESET="bdf5490"
+MY_CHANGESET="960009d"
 
 RESTRICT="mirror"
 

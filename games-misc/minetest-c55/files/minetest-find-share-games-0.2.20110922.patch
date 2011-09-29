@@ -1,6 +1,5 @@
-diff -Naur celeron55-minetest-7244f09-old/src/porting.cpp celeron55-minetest-7244f09/src/porting.cpp
---- celeron55-minetest-7244f09-old/src/porting.cpp	2011-09-22 21:13:09.279654700 +0200
-+++ celeron55-minetest-7244f09/src/porting.cpp	2011-09-22 21:15:51.648411215 +0200
+--- src/porting.cpp	2011-09-22 21:13:09.279654700 +0200
++++ src/porting.cpp	2011-09-22 21:15:51.648411215 +0200
 @@ -209,13 +209,7 @@
  	
  	pathRemoveFile(buf, '/');
