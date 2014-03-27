@@ -1,0 +1,73 @@
+diff -Naur openssl-1.0.1f-orig/apps/s_client.c openssl-1.0.1f/apps/s_client.c
+--- openssl-1.0.1f-orig/apps/s_client.c	2014-03-27 09:15:42.875151056 +0100
++++ openssl-1.0.1f/apps/s_client.c	2014-03-27 09:19:58.753425501 +0100
+@@ -348,7 +348,7 @@
+ 	BIO_printf(bio_err," -starttls prot - use the STARTTLS command before starting TLS\n");
+ 	BIO_printf(bio_err,"                 for those protocols that support it, where\n");
+ 	BIO_printf(bio_err,"                 'prot' defines which one to assume.  Currently,\n");
+-	BIO_printf(bio_err,"                 only \"smtp\", \"pop3\", \"imap\", \"ftp\" and \"xmpp\"\n");
++	BIO_printf(bio_err,"                 only \"smtp\", \"pop3\", \"imap\", \"ftp\", \"xmpp\" and \"sieve\"\n");
+ 	BIO_printf(bio_err,"                 are supported.\n");
+ #ifndef OPENSSL_NO_ENGINE
+ 	BIO_printf(bio_err," -engine id    - Initialise and use the specified engine\n");
+@@ -554,7 +554,8 @@
+ 	PROTO_POP3,
+ 	PROTO_IMAP,
+ 	PROTO_FTP,
+-	PROTO_XMPP
++	PROTO_XMPP,
++	PROTO_SIEVE
+ };
+ 
+ int MAIN(int, char **);
+@@ -929,6 +930,8 @@
+ 				starttls_proto = PROTO_FTP;
+ 			else if (strcmp(*argv, "xmpp") == 0)
+ 				starttls_proto = PROTO_XMPP;
++			else if (strcmp(*argv, "sieve") == 0)
++				starttls_proto = PROTO_SIEVE;
+ 			else
+ 				goto bad;
+ 			}
+@@ -1521,6 +1524,29 @@
+ 			goto shut;
+ 		mbuf[0] = 0;
+ 		}
++	else if (starttls_proto == PROTO_SIEVE)
++		{
++		int foundit=0;
++		BIO *fbio = BIO_new(BIO_f_buffer());
++		BIO_push(fbio, sbio);
++		/* wait for multi-line CAPABILITY response */
++		do
++			{
++			mbuf_len = BIO_gets(fbio,mbuf,BUFSIZZ);
++			if (strstr(mbuf,"\"STARTTLS\""))
++				 foundit=1;
++			}
++		while (mbuf_len>4 && strncmp(mbuf, "OK", 2));
++		(void)BIO_flush(fbio);
++		BIO_pop(fbio);
++		BIO_free(fbio);
++		if (!foundit)
++			BIO_printf(bio_err,
++			    "didn't found STARTTLS in server response,"
++			    " try anyway...\n");
++		BIO_printf(sbio,"STARTTLS\r\n");
++		BIO_read(sbio,sbuf,BUFSIZZ);
++		}
+ 
+ 	for (;;)
+ 		{
+diff -Naur openssl-1.0.1f-orig/doc/apps/s_client.pod openssl-1.0.1f/doc/apps/s_client.pod
+--- openssl-1.0.1f-orig/doc/apps/s_client.pod	2014-03-27 09:15:42.885150872 +0100
++++ openssl-1.0.1f/doc/apps/s_client.pod	2014-03-27 09:20:51.148448476 +0100
+@@ -203,7 +203,7 @@
+ 
+ send the protocol-specific message(s) to switch to TLS for communication.
+ B<protocol> is a keyword for the intended protocol.  Currently, the only
+-supported keywords are "smtp", "pop3", "imap", and "ftp".
++supported keywords are "smtp", "pop3", "imap", "ftp", "xmpp" and "sieve".
+ 
+ =item B<-tlsextdebug>
+ 

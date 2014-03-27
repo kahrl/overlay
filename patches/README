@@ -1,0 +1,6 @@
+sieve-starttls.patch
+====================
+Package: dev-libs/openssl
+Purpose: Adds "-starttls sieve" support to openssl -s_client
+How to install: Copy sieve-starttls.patch to
+  /etc/portage/patches/dev-libs/openssl/sieve-starttls.patch
