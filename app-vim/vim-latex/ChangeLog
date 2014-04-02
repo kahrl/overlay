@@ -1,0 +1,10 @@
+# ChangeLog for app-vim/vim-latex
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*vim-latex-1.8.23.20130116 (02 Apr 2014)
+
+  02 Apr 2014; Kahrl <kahrl@gmx.net> +vim-latex-1.8.23.20130116.ebuild,
+  +metadata.xml:
+  New ebuild, same as in gentoo repository but with epatch_user
+
