@@ -4,3 +4,11 @@ Package: dev-libs/openssl
 Purpose: Adds "-starttls sieve" support to openssl -s_client
 How to install: Copy sieve-starttls.patch to
   /etc/portage/patches/dev-libs/openssl/sieve-starttls.patch
+
+vim-latex-disable-some-shortcuts.patch
+=====================================
+Package: app-vim/vim-latex
+Purpose: Disables shortcuts (e.g. ==) which can interfere with normal typing
+How to install: Copy vim-latex-disable-some-shortcuts.patch to
+  /etc/portage/patches/app-vim/vim-latex/vim-latex-disable-some-shortcuts.patch
+

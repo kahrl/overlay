@@ -1,0 +1,35 @@
+--- ftplugin/latex-suite/main.vim	2014-04-02 14:19:08.427465993 +0200
++++ ftplugin/latex-suite/main.vim	2014-04-02 14:19:32.423985484 +0200
+@@ -46,19 +46,19 @@
+ 	let s:doneMappings = 1
+ 	" short forms for latex formatting and math elements. {{{
+ 	" taken from auctex.vim or miktexmacros.vim
+-	call IMAP ('__', '_{<++>}<++>', "tex")
+-	call IMAP ('()', '(<++>)<++>', "tex")
+-	call IMAP ('[]', '[<++>]<++>', "tex")
+-	call IMAP ('{}', '{<++>}<++>', "tex")
+-	call IMAP ('^^', '^{<++>}<++>', "tex")
+-	call IMAP ('$$', '$<++>$<++>', "tex")
+-	call IMAP ('==', '&=& ', "tex")
+-	call IMAP ('~~', '&\approx& ', "tex")
+-	call IMAP ('=~', '\approx', "tex")
+-	call IMAP ('::', '\dots', "tex")
+-	call IMAP ('((', '\left( <++> \right)<++>', "tex")
+-	call IMAP ('[[', '\left[ <++> \right]<++>', "tex")
+-	call IMAP ('{{', '\left\{ <++> \right\}<++>', "tex")
++	"call IMAP ('__', '_{<++>}<++>', "tex")
++	"call IMAP ('()', '(<++>)<++>', "tex")
++	"call IMAP ('[]', '[<++>]<++>', "tex")
++	"call IMAP ('{}', '{<++>}<++>', "tex")
++	"call IMAP ('^^', '^{<++>}<++>', "tex")
++	"call IMAP ('$$', '$<++>$<++>', "tex")
++	"call IMAP ('==', '&=& ', "tex")
++	"call IMAP ('~~', '&\approx& ', "tex")
++	"call IMAP ('=~', '\approx', "tex")
++	"call IMAP ('::', '\dots', "tex")
++	"call IMAP ('((', '\left( <++> \right)<++>', "tex")
++	"call IMAP ('[[', '\left[ <++> \right]<++>', "tex")
++	"call IMAP ('{{', '\left\{ <++> \right\}<++>', "tex")
+ 	call IMAP (g:Tex_Leader.'^', '\hat{<++>}<++>', "tex")
+ 	call IMAP (g:Tex_Leader.'_', '\bar{<++>}<++>', "tex")
+ 	call IMAP (g:Tex_Leader.'6', '\partial', "tex")
